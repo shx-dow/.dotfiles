@@ -16,11 +16,17 @@ return {
   { import = "nvchad.blink.lazyspec" },
 
   {
+    "OXY2DEV/markview.nvim",
+    lazy = false,
+  },
+
+  {
     "nvim-treesitter/nvim-treesitter",
     opts = {
       ensure_installed = {
         "vim", "lua", "vimdoc", "html", "css",
         "rust", "go", "typescript", "python", "gomod", "gowork",
+        "markdown", "markdown_inline",
       },
     },
   },
