@@ -1,7 +1,3 @@
-# if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
-#  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
-# fi
-
 export ZSH="$HOME/.oh-my-zsh"
 ZSH_THEME="robbyrussell"
 export COLORTERM=truecolor
@@ -17,9 +13,6 @@ plugins=(
 )
 
 source $ZSH/oh-my-zsh.sh
-
-# Powerlevel10k
-# [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 
 # Environment
 export EDITOR="nvim"
@@ -110,8 +103,6 @@ fi
 
 unsetopt BEEP
 
-# To customize prompt, run `p10k configure` or edit ~/dotfiles/zsh/.p10k.zsh.
-# [[ ! -f ~/dotfiles/zsh/.p10k.zsh ]] || source ~/dotfiles/zsh/.p10k.zsh
 alias fd=fdfind
 
 export NVM_DIR="$HOME/.nvm"
