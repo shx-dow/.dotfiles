@@ -1,9 +1,7 @@
 export ZSH="$HOME/.oh-my-zsh"
-ZSH_THEME="robbyrussell"
 export COLORTERM=truecolor
 
 plugins=(
-  git
   fzf
   docker
   golang
@@ -24,6 +22,7 @@ export GOPATH="$HOME/go"
 export PATH="$GOPATH/bin:$PATH"
 
 # History
+export HISTFILE="$HOME/.zsh_history"
 export HISTSIZE=100000
 export SAVEHIST=100000
 setopt SHARE_HISTORY HIST_IGNORE_DUPS HIST_IGNORE_SPACE HIST_FIND_NO_DUPS
@@ -34,6 +33,8 @@ alias ls='eza --icons --git'
 alias ll='eza -lah --icons --git'
 alias la='eza -a --icons'
 alias lt='eza --tree --level=2 --icons'
+alias fd=fdfind
+alias bat=batcat
 
 # zoxide
 eval "$(zoxide init zsh)"
@@ -51,6 +52,11 @@ export FZF_DEFAULT_OPTS='
 '
 
 # pnpm
+export PNPM_HOME="/home/shx/.local/share/pnpm"
+case ":$PATH:" in
+  *":$PNPM_HOME/bin:"*) ;;
+  *) export PATH="$PNPM_HOME/bin:$PATH" ;;
+esac
 alias pn="pnpm"
 alias pni="pnpm install"
 alias pnd="pnpm dev"
@@ -78,7 +84,14 @@ alias zshreload="source ~/.zshrc"
 
 # Git
 alias gst="git status"
-alias lg="lazygit"
+
+
+autoload -Uz vcs_info
+precmd() { vcs_info }
+zstyle ':vcs_info:git:*' check-for-changes true
+zstyle ':vcs_info:git:*' stagedstr '%F{244}*%f'
+zstyle ':vcs_info:git:*' unstagedstr '%F{242}+%f'
+zstyle ':vcs_info:git:*' formats ' %F{240}%b%f%c%u'
 
 # Docker
 alias dcu="docker compose up -d"
@@ -89,6 +102,7 @@ if grep -qi microsoft /proc/version; then
   alias explorer='explorer.exe .'
   alias code='zed .'
   alias winhome='cd /mnt/c/Users/$(whoami | tr -d "\r")'
+  alias clip='clip.exe'
 fi
 
 # Autosuggestions (config BEFORE source)
@@ -103,25 +117,23 @@ fi
 
 unsetopt BEEP
 
-alias fd=fdfind
 
 export NVM_DIR="$HOME/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
-[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
-
-# pnpm
-export PNPM_HOME="/home/shx/.local/share/pnpm"
-case ":$PATH:" in
-  *":$PNPM_HOME/bin:"*) ;;
-  *) export PATH="$PNPM_HOME/bin:$PATH" ;;
-esac
-# pnpm end
+nvm() {
+  unset -f nvm node npm npx
+  [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
+  nvm "$@"
+}
+node() { unset -f nvm node npm npx; \. "$NVM_DIR/nvm.sh"; node "$@"; }
+npm()  { unset -f nvm node npm npx; \. "$NVM_DIR/nvm.sh"; npm "$@"; }
+npx()  { unset -f nvm node npm npx; \. "$NVM_DIR/nvm.sh"; npx "$@"; }
 
 # bun completions
 [ -s "/home/shx/.bun/_bun" ] && source "/home/shx/.bun/_bun"
 
-# >>> grok installer >>>
-export PATH="$HOME/.grok/bin:$PATH"
-fpath=(~/.grok/completions/zsh $fpath)
-autoload -Uz compinit && compinit -C
-# <<< grok installer <<<
+# opencode
+export PATH=/home/shx/.opencode/bin:$PATH
+
+# Prompt
+export PS1='[%F{248}%n%f@%F{248}%m%f]:%F{244}%~%f${vcs_info_msg_0_}$ '
+
