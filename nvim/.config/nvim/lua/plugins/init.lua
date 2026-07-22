@@ -30,4 +30,16 @@ return {
       },
     },
   },
+
+  -- etch: AI code editing via Pi
+  {
+    dir = "/home/shx/code/sandbox/etch",
+    lazy = false,
+    config = function()
+      require("etch").setup({
+        keybind = "<leader>ea",
+        model = "opencode/deepseek-v4-flash-free",
+      })
+    end,
+  },
 }
