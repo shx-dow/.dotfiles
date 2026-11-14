@@ -1,0 +1,19 @@
+{
+  "$schema": "https://opencode.ai/config.json",
+  "mcp": {
+    "servers": {
+      "lantern": {
+        "type": "local",
+        "command": [
+          "sh",
+          "-c",
+          "export LANTERND_URL=http://127.0.0.1:43782; export LANTERN_DAEMON_TOKEN_FILE=\"$HOME/.local/share/lantern/.lanternd-token\"; exec \"${LANTERN_BIN:-$HOME/lantern-go/lantern}\" mcp"
+        ]
+      },
+      "Neon": {
+        "type": "remote",
+        "url": "https://mcp.neon.tech/mcp"
+      }
+    }
+  }
+}

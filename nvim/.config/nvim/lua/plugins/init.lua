@@ -33,7 +33,7 @@ return {
 
   -- etch: AI code editing via Pi
   {
-    dir = "/home/shx/code/sandbox/etch.nvim",
+    dir = vim.env.ETCH_NVIM_PATH or vim.fn.expand("~/code/sandbox/etch.nvim"),
     lazy = false,
     config = function()
       require("etch").setup({

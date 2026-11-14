@@ -24,7 +24,7 @@ fi
 
 echo "==> Stowing dotfiles..."
 cd "$DOTFILES"
-stow -v git shell zsh tmux nvim btop
+stow -v git shell zsh tmux nvim btop gh zed opencode
 
 echo "==> Done!"
 echo ""
