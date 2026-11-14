@@ -33,7 +33,7 @@ return {
 
   -- etch: AI code editing via Pi
   {
-    dir = "/home/shx/code/sandbox/etch",
+    dir = "/home/shx/code/sandbox/etch.nvim",
     lazy = false,
     config = function()
       require("etch").setup({

@@ -119,6 +119,10 @@ unsetopt BEEP
 
 
 export NVM_DIR="$HOME/.nvm"
+# Prepend nvm's node bin to PATH for subprocesses (pnpm lifecycle scripts, etc.)
+_nvm_node_bins=($NVM_DIR/versions/node/*/bin(N))
+[[ -n "$_nvm_node_bins" ]] && path=("$_nvm_node_bins[1]" $path)
+unset _nvm_node_bins
 nvm() {
   unset -f nvm node npm npx
   [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
